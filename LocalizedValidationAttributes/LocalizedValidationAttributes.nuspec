@@ -7,7 +7,7 @@
 		<authors>$author$</authors>
 		<owners>$author$</owners>
 		<projectUrl>https://github.com/KenticoDevTrev/KenticoLocalizedValidationAttributes</projectUrl>
-		<iconUrl>https://raw.githubusercontent.com/Kentico/devnet.kentico.com/master/marketplace/assets/generic-integration.png</iconUrl>
+		<iconUrl>http://www.devtrev.com/DevTrev/media/Design/HBS-Logo.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>$description$</description>
 		<releaseNotes/>
@@ -16,7 +16,6 @@
 		<dependencies>
 			<dependency id="Kentico.AspNet.Mvc" version="12.0.29" />
 			<dependency id="System.ComponentModel.Annotations" version="4.7.0" />
-			
 		</dependencies>
 	</metadata>
 </package>
