@@ -10,7 +10,7 @@
 		<iconUrl>http://www.devtrev.com/DevTrev/media/Design/HBS-Logo.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>$description$</description>
-		<releaseNotes/>
+		<releaseNotes>Adding missing UrlAttribute and added IClientValidation logic, thought it would inherit from base class.</releaseNotes>
 		<copyright>Heartland Business Systems</copyright>
 		<tags>ValidationAttributes Validation MVC Kentico Localized</tags>
 		<dependencies>

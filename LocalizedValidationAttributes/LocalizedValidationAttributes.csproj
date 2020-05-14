@@ -542,6 +542,7 @@
     <Compile Include="LocalizedAttributes\LocalizedRegularExpressionAttribute.cs" />
     <Compile Include="LocalizedAttributes\LocalizedRequiredAttribute.cs" />
     <Compile Include="LocalizedAttributes\LocalizedStringLengthAttribute.cs" />
+    <Compile Include="LocalizedAttributes\LocalizedUrlAttribute.cs" />
     <Compile Include="LocalizedAttributes\LocalizedValidationAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

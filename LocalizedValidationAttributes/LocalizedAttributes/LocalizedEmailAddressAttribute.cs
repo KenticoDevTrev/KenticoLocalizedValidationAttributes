@@ -1,5 +1,6 @@
 ﻿using CMS.Core;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -11,12 +12,21 @@ namespace HBS.LocalizedValidationAttributes.Kentico.MVC
     /// Localized version of the EmailAddressAttribute, Error Message can contain resolve {$ localizedstring.key $}'s, and the resolved string can contain a {0} for the Property Name
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-    public class LocalizedEmailAddressAttribute : DataTypeAttribute
+    public class LocalizedEmailAddressAttribute : DataTypeAttribute, IClientValidatable
     {
         private static Regex _regex = CreateRegEx();
 
         public LocalizedEmailAddressAttribute() : base(DataType.EmailAddress)
         {
+        }
+
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        {
+            yield return new ModelClientValidationRule
+            {
+                ValidationType = "email",
+                ErrorMessage = FormatErrorMessage(metadata.GetDisplayName())
+            };
         }
 
         public override bool IsValid(object value)

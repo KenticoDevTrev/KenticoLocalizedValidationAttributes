@@ -1,5 +1,6 @@
 ﻿using CMS.Core;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -11,11 +12,12 @@ namespace HBS.LocalizedValidationAttributes.Kentico.MVC
     /// Localized version of the PhoneAttribute, Error Message can contain resolve {$ localizedstring.key $}'s, and the resolved string can contain a {0} for the Property Name
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-    public sealed class LocalizedPhoneAttribute : DataTypeAttribute
+    public sealed class LocalizedPhoneAttribute : DataTypeAttribute, IClientValidatable
     {
         // see unit tests for examples
         private static Regex _regex = CreateRegEx();
         private const string _additionalPhoneNumberCharacters = "-.()";
+        const string pattern = @"^(\+\s?)?((?<!\+.*)\(\+?\d+([\s\-\.]?\d+)?\)|\d+)([\s\-\.]?(\(\d+([\s\-\.]?\d+)?\)|\d+))*(\s?(x|ext\.?)\s?\d+)?$";
 
         public LocalizedPhoneAttribute()
             : base(DataType.PhoneNumber)
@@ -82,7 +84,6 @@ namespace HBS.LocalizedValidationAttributes.Kentico.MVC
                 return null;
             }*/
 
-            const string pattern = @"^(\+\s?)?((?<!\+.*)\(\+?\d+([\s\-\.]?\d+)?\)|\d+)([\s\-\.]?(\(\d+([\s\-\.]?\d+)?\)|\d+))*(\s?(x|ext\.?)\s?\d+)?$";
             const RegexOptions options = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture;
 
             // Set explicit regex match timeout, sufficient enough for phone parsing
@@ -172,6 +173,11 @@ namespace HBS.LocalizedValidationAttributes.Kentico.MVC
             }
             ILocalizationService _LocalizationService = DependencyResolver.Current.GetService<ILocalizationService>();
             return String.Format(CultureInfo.CurrentCulture, _LocalizationService.LocalizeString(LocalErrorMessage, CultureInfo.CurrentCulture.Name), name);
+        }
+
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        {
+            yield return new ModelClientValidationRegexRule(FormatErrorMessage(metadata.GetDisplayName()), pattern);
         }
     }
 }

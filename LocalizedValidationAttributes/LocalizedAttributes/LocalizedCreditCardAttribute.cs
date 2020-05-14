@@ -1,5 +1,6 @@
 ﻿using CMS.Core;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
@@ -11,12 +12,21 @@ namespace HBS.LocalizedValidationAttributes.Kentico.MVC
     /// Localized version of the CreditCardAttribute, Error Message can contain resolve {$ localizedstring.key $}'s, and the resolved string can contain a {0} for the Property Name
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-    public sealed class LocalizedCreditCardAttribute : DataTypeAttribute
+    public sealed class LocalizedCreditCardAttribute : DataTypeAttribute, IClientValidatable
     {
         public LocalizedCreditCardAttribute()
             : base(DataType.CreditCard)
         {
 
+        }
+
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        {
+            yield return new ModelClientValidationRule
+            {
+                ValidationType = "creditcard",
+                ErrorMessage = FormatErrorMessage(metadata.GetDisplayName())
+            };
         }
 
         public override bool IsValid(object value)

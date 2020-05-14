@@ -14,7 +14,7 @@ namespace HBS.LocalizedValidationAttributes.Kentico.MVC
     /// Localized version of the FileExtensionsAttribute, Error Message can contain resolve {$ localizedstring.key $}'s, and the resolved string can contain a {0} for the Property Name
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-    public sealed class LocalizedFileExtensionsAttribute : DataTypeAttribute
+    public sealed class LocalizedFileExtensionsAttribute : DataTypeAttribute, IClientValidatable
     {
         private string _extensions;
 
@@ -100,6 +100,17 @@ namespace HBS.LocalizedValidationAttributes.Kentico.MVC
             {
                 return false;
             }
+        }
+
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        {
+            var rule = new ModelClientValidationRule
+            {
+                ValidationType = "extension",
+                ErrorMessage = FormatErrorMessage(metadata.GetDisplayName())
+            };
+            rule.ValidationParameters["extension"] = ExtensionsNormalized;
+            yield return rule;
         }
     }
 }
