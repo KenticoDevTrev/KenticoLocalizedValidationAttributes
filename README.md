@@ -48,8 +48,6 @@ public class ValidationTestModel
         public string Required { get; set; }
         [LocalizedStringLength(10, MinimumLength = 5, ErrorMessage = "{$ validationtest.stringlength $}")]
         public string StringLength { get; set; }
-        [LocalizedPasswordPolicy(ErrorMessage = "{$ validationtest.passwordpolicy $}")]
-        public string Password { get; set; }
 
         public static ValidationResult CustomCheck(string modelContext, ValidationContext validationContext)
         {
