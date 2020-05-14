@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
+		<projectUrl>https://github.com/KenticoDevTrev/KenticoLocalizedValidationAttributes</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/Kentico/devnet.kentico.com/master/marketplace/assets/generic-integration.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>$description$</description>
+		<releaseNotes/>
+		<copyright>Heartland Business Systems</copyright>
+		<tags>ValidationAttributes Validation MVC Kentico Localized</tags>
+		<dependencies>
+			<dependency id="Kentico.AspNet.Mvc" version="12.0.29" />
+			<dependency id="System.ComponentModel.Annotations" version="4.7.0" />
+			
+		</dependencies>
+	</metadata>
+</package>
